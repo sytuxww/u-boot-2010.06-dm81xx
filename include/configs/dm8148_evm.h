@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009, Texas Instruments, Incorporated
+ * Copyright (C) 2011, 无锡信捷电气有限公司
  *
  * See file CREDITS for list of people who contributed to this
  * project.
@@ -13,6 +13,14 @@
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+
+/**
+ * 版本信息：
+ * 版本		时间			 说明
+ *  0	 2011年10月11日      从TI8148_EVM中复制过来配置信息。
+ *
+ */
+
 
 #ifndef __CONFIG_TI8148_EVM_H
 #define __CONFIG_TI8148_EVM_H
@@ -42,14 +50,14 @@
 # define CONFIG_TI814X_CONFIG_DDR
 # define CONFIG_TI814X_EVM_DDR3
 /*
- * # define CONFIG_TI814X_EVM_DDR2
+ * # define CONFIG_TI814X_EVM_DDR2   //using DDR2
  */ 
-# define CONFIG_ENV_SIZE		0x400
+# define CONFIG_ENV_SIZE			0x400
 # define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + (8 * 1024))
-# define CONFIG_SYS_PROMPT		"TI-MIN#"
-# define CONFIG_BOOTDELAY		3	/* set to negative value for no autoboot */
-# if defined(CONFIG_SPI_BOOT)		/* Autoload the 2nd stage from SPI */
-#  define CONFIG_SPI			1
+# define CONFIG_SYS_PROMPT			"Xinje-XWW-Rev0#"
+# define CONFIG_BOOTDELAY			3	/* set to negative value for no autoboot */
+# if defined(CONFIG_SPI_BOOT)			/* Autoload the 2nd stage from SPI */
+#  define CONFIG_SPI				1
 #  define CONFIG_EXTRA_ENV_SETTINGS \
 	"verify=yes\0" \
 	"bootcmd=sf probe 0; sf read 0x81000000 0x20000 0x40000; go 0x81000000\0" \
