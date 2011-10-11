@@ -13,6 +13,7 @@
 # of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
+#在此定义了默认加载地址和交叉编译的编译器以及连接脚本。
 
 sinclude $(OBJTREE)/board/$(BOARDDIR)/config.tmp
 # This will be used by mkimage extension to select header for image

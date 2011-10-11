@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009, Texas Instruments, Incorporated
+ * Copyright (C) 2011, 无锡信捷电气有限公司
  *
  * See file CREDITS for list of people who contributed to this
  * project.
@@ -12,6 +12,13 @@
  * kind, whether express or implied; without even the implied warranty
  * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
+ */
+
+/**
+ * 版本信息：
+ * 版本		时间			 说明
+ *  0	 2011年10月11日      从TI8148_EVM中复制过来配置信息。
+ *
  */
 
 /* 1-4 */	BIT(0), BIT(0), BIT(0), BIT(0),
