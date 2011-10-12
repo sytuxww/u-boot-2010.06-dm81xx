@@ -1,6 +1,8 @@
 /*
- * (C) Copyright 2010
- * Texas Instruments, <www.ti.com>
+ * (C) Copyright 2011 无锡信捷电气有限公司
+ *		luwei <sytu_xww@yahoo.com.cn>
+ *
+ * (C) Copyright 2010 Texas Instruments, <www.ti.com>
  *
  * Author :
  *     Mansoor Ahamed <mansoor.ahamed@ti.com>
@@ -59,7 +61,20 @@ static const u32 gpmc_m_nand[GPMC_MAX_REG] = {
 
 #endif
 
-
+/* 
+ * 函数: enable_gpmc_cs_config
+ *
+ * 参数: 
+ *		const u32 *gpmc_config  GPMC参数设置
+ *		struct gpmc_cs *cs		CPU寄存器
+ *		u32 base				基地址
+ *		u32 size				大小
+ *
+ * 返回值: 无
+ *
+ * 描述:
+ * 		根据gpmc_config的参数设置，写入GPMC对应的cs寄存器，并设置NAND基地址和大小。
+ */
 void enable_gpmc_cs_config(const u32 *gpmc_config, struct gpmc_cs *cs, u32 base,
 			u32 size)
 {
@@ -73,19 +88,32 @@ void enable_gpmc_cs_config(const u32 *gpmc_config, struct gpmc_cs *cs, u32 base,
 	writel(gpmc_config[4], &cs->config5);
 	writel(gpmc_config[5], &cs->config6);
 	/* Enable the config */
+	//设置NAND基地址和大小，并使能
 	writel((((size & 0xF) << 8) | ((base >> 24) & 0x3F) |
 		(1 << 6)), &cs->config7);
 	sdelay(2000);
 }
 
-/*****************************************************
- * gpmc_init(): init gpmc bus
- * Init GPMC for x16, MuxMode (SDRAM in x32).
- * This code can only be executed from SRAM or SDRAM.
- *****************************************************/
+/* 
+ * 函数: gpmc_init
+ *
+ * 参数: 
+ *		无
+ *
+ * 返回值: 无
+ *
+ * 描述:
+ * 		设置GPMC
+ *		Init GPMC for x16, MuxMode (SDRAM in x32).
+ * 		This code can only be executed from SRAM or SDRAM.
+ * 		初始化GPMC总线，x16总线
+ *
+ * TODO 修改为x8 for K9F2G08U0B 
+ */
 void gpmc_init(void)
 {
 	/* putting a blanket check on GPMC based on ZeBu for now */
+	/* GPMC_BASE = 0x50000000 gpmc的寄存器地址 */
 	gpmc_cfg = (struct gpmc *)GPMC_BASE;
 
 #ifdef CONFIG_NOR_BOOT
@@ -104,10 +132,21 @@ void gpmc_init(void)
 	u32 f_sec = 0;
 #endif
 #endif
-	/* global settings */
+	//-------------------------------------------------------------------//
+	//
+	//					全局设置 
+	//
+	//-------------------------------------------------------------------//
+	/* SIDLEMODE = 0x1 No-idle. An idle request is never acknowledged */
 	writel(0x00000008, &gpmc_cfg->sysconfig);
+	/* WAIT0EDGEDETECTIONSTATUS = 1 复位 */
 	writel(0x00000100, &gpmc_cfg->irqstatus);
+	/* WAIT1EDGEDETECTIONENABLE = 1 使能边沿触发中断wait1 */
 	writel(0x00000200, &gpmc_cfg->irqenable);
+	/* 
+	 * LIMITEDADDRESS = 1 限制地址使能 
+	 * WRITEPROTECT = 1   WP管脚为高
+	 */
 	writel(0x00000012, &gpmc_cfg->config);
 	/*
 	 * Disable the GPMC0 config set by ROM code
@@ -115,6 +154,11 @@ void gpmc_init(void)
 	writel(0, &gpmc_cfg->cs[0].config7);
 	sdelay(1000);
 
+	//-------------------------------------------------------------------//
+	//
+	//					读写时序设置 
+	//
+	//-------------------------------------------------------------------//
 #if defined(CONFIG_CMD_NAND)	/* CS 0 */
 	gpmc_config = gpmc_m_nand;
 

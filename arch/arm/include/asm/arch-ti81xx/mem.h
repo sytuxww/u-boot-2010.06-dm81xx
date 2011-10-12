@@ -44,6 +44,17 @@ enum {
 
 #define EARLY_INIT	1
 
+
+//--------------------------------------------------------------------------------//
+//				GPMC时序设置,对应GPMC寄存器中config0~7
+//	目前支持：
+//		 * STNOR - Intel Strata Flash
+//		 * SMNAND - Samsung NAND
+//		 * MPDB - H4 MPDB board
+//		 * SBNOR - Sibley NOR
+//		 * MNAND - Micron Large page x16 NAND
+//		 * ONNAND - Samsung One NAND		
+//--------------------------------------------------------------------------------//
 /*
  * GPMC settings -
  * Definitions is as per the following format
@@ -95,12 +106,13 @@ enum {
 #define SMNAND_GPMC_CONFIG6	0x1F0F0A80
 #define SMNAND_GPMC_CONFIG7	0x00000C44
 
-#define M_NAND_GPMC_CONFIG1	0x00001810
-#define M_NAND_GPMC_CONFIG2 	0x001e1e00
-#define M_NAND_GPMC_CONFIG3 	0x001e1e00
-#define M_NAND_GPMC_CONFIG4 	0x16051807
-#define M_NAND_GPMC_CONFIG5 	0x00151e1e
-#define M_NAND_GPMC_CONFIG6	0x16000f80
+//#define M_NAND_GPMC_CONFIG1	0x00001010 for x8总线NAND
+#define M_NAND_GPMC_CONFIG1	0x00001810	//CS0信号时序设置
+#define M_NAND_GPMC_CONFIG2 0x001e1e00	//ADV信号时序设置
+#define M_NAND_GPMC_CONFIG3 0x001e1e00	//WE和OE信号时序设置
+#define M_NAND_GPMC_CONFIG4 0x16051807	//读写时序设置
+#define M_NAND_GPMC_CONFIG5 0x00151e1e	//
+#define M_NAND_GPMC_CONFIG6	0x16000f80	//芯片容量和基地址设置
 #define M_NAND_GPMC_CONFIG7	0x00000008
 
 #define STNOR_GPMC_CONFIG1	0x3
@@ -168,9 +180,10 @@ enum {
 #define PISMO2_NAND_CS1 	8
 
 /* make it readable for the gpmc_init */
-#define PISMO1_NOR_BASE	FLASH_BASE
-#define PISMO1_NAND_BASE	NAND_BASE
-#define PISMO1_NAND_SIZE	GPMC_SIZE_256M
+// 设置NAND基地址和大小，在config.h中设置
+#define PISMO1_NOR_BASE		FLASH_BASE
+#define PISMO1_NAND_BASE	NAND_BASE			
+#define PISMO1_NAND_SIZE	GPMC_SIZE_256M  //设定NAND大小
 
 #endif /* endif _MEM_H_ */
 
