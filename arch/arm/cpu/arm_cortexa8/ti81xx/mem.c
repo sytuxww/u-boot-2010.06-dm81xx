@@ -28,6 +28,9 @@
  * MA 02111-1307 USA
  */
 
+// 0  2011年10月12日  添加了三星和美光的两种NAND的选择，两者差异为美光为16位数据，而
+//					  三星为8位数据线，且两者的时序选择不一样。
+
 #include <common.h>
 #include <asm/io.h>
 #include <asm/arch/cpu.h>
@@ -48,6 +51,8 @@ volatile unsigned int boot_flash_env_addr;
 struct gpmc *gpmc_cfg;
 
 #if defined(CONFIG_CMD_NAND)
+
+#if defined(CONFIG_NAND_MICRON)
 static const u32 gpmc_m_nand[GPMC_MAX_REG] = {
 	M_NAND_GPMC_CONFIG1,
 	M_NAND_GPMC_CONFIG2,
@@ -56,7 +61,18 @@ static const u32 gpmc_m_nand[GPMC_MAX_REG] = {
 	M_NAND_GPMC_CONFIG5,
 	M_NAND_GPMC_CONFIG6, 0
 };
+#endif
 
+#if defined(CONFIG_NAND_SAMSUNG)
+static const u32 gpmc_m_nand[GPMC_MAX_REG] = {
+	SMNAND_GPMC_CONFIG1,
+	SMNAND_GPMC_CONFIG2,
+	SMNAND_GPMC_CONFIG3,
+	SMNAND_GPMC_CONFIG4,
+	SMNAND_GPMC_CONFIG5,
+	SMNAND_GPMC_CONFIG6, 0
+};
+#endif
 #define GPMC_CS 0
 
 #endif
