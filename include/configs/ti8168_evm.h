@@ -14,6 +14,9 @@
  * GNU General Public License for more details.
  */
 
+// 0  2011年10月12日  添加了三星和美光的两种NAND的选择，两者差异为美光为16位数据，而
+//					  三星为8位数据线。
+
 #ifndef __CONFIG_TI816X_EVM_H
 #define __CONFIG_TI816X_EVM_H
 
@@ -213,6 +216,9 @@
 							/* to access nand at */
 							/* CS0 */
 # define CONFIG_SYS_MAX_NAND_DEVICE	1		/* Max number of NAND */
+
+//# define CONFIG_NAND_MICRON    //for 美光NAND MT29F2G16
+# define CONFIG_NAND_SAMSUNG	 //for 三星NAND K9F2G08U0B 
 #endif							/* devices */
 
 /* ENV in NAND */
