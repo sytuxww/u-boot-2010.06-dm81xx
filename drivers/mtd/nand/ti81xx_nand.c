@@ -867,6 +867,9 @@ int board_nand_init(struct nand_chip *nand)
 	nand->cmd_ctrl = ti81xx_nand_hwcontrol;
 	nand->options = NAND_NO_PADDING | NAND_CACHEPRG | NAND_NO_AUTOINCR;
 	/* If we are 16 bit dev, our gpmc config tells us that */
+	//根据config1的13-12位DEVICESIZE决定是8位数据还是16位数据。
+	//0x0 8位
+	//0x1 16位
 	if ((readl(&gpmc_cfg->cs[cs].config1) & 0x3000) == 0x1000) {
 		nand->options |= NAND_BUSWIDTH_16;
 	}
