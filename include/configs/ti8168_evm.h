@@ -140,29 +140,32 @@
 
 #undef  CONFIG_SYS_CLKS_IN_HZ				/* everything, incl board info, in Hz */
 #define CONFIG_SYS_LOAD_ADDR		0x81000000	/* Default load address */
-#define CONFIG_SYS_HZ			1000	/* 1ms clock */
+#define CONFIG_SYS_HZ				1000	/* 1ms clock */
 
 /* Hardware related */
 
-/**
- * Physical Memory Map
- */
+
+//--------------------------------------------------------------------//
+//					 Physical Memory Map
+//--------------------------------------------------------------------//
 #define CONFIG_NR_DRAM_BANKS		2		/* we have 2 banks of DRAM */
-#define PHYS_DRAM_1			0x80000000	/* DRAM Bank #1 */
+#define PHYS_DRAM_1				0x80000000	/* DRAM Bank #1 */
 #define PHYS_DRAM_1_SIZE		0x40000000	/* 1 GB */
-#define PHYS_DRAM_2			0xC0000000	/* DRAM Bank #2 */
+#define PHYS_DRAM_2				0xC0000000	/* DRAM Bank #2 */
 #define PHYS_DRAM_2_SIZE		0x40000000	/* 1 GB */
 
 
-/**
- * Platform/Board specific defs
- */
+//--------------------------------------------------------------------//
+//					 Platform/Board specific defs
+//--------------------------------------------------------------------//
 #define CONFIG_SYS_CLK_FREQ		27000000
-#define CONFIG_SYS_TIMERBASE		0x4802E000
+#define CONFIG_SYS_TIMERBASE	0x4802E000
 
-/*
- * NS16550 Configuration
- */
+
+
+//--------------------------------------------------------------------//
+//					 NS16550 Configuration
+//--------------------------------------------------------------------//
 #define CONFIG_SYS_NS16550
 #define CONFIG_SYS_NS16550_SERIAL
 #define CONFIG_SYS_NS16550_REG_SIZE	(-4)
@@ -204,21 +207,32 @@
 #define CONFIG_ENV_IS_NOWHERE
 #endif
 
-/* NAND support */
+//--------------------------------------------------------------------//
+//					NAND support
+//--------------------------------------------------------------------//
 #ifdef CONFIG_NAND
 # define CONFIG_CMD_NAND
 # define CONFIG_NAND_TI81XX
-# define GPMC_NAND_ECC_LP_x16_LAYOUT	1
-# define NAND_BASE			(0x08000000)	/* FIXME not sure */
+# define NAND_BASE					(0x08000000)	/* FIXME not sure */
 # define CONFIG_SYS_NAND_ADDR		NAND_BASE	/* physical address */
 							/* to access nand */
 # define CONFIG_SYS_NAND_BASE		NAND_BASE	/* physical address */
 							/* to access nand at */
 							/* CS0 */
-# define CONFIG_SYS_MAX_NAND_DEVICE	1		/* Max number of NAND */
+# define CONFIG_SYS_MAX_NAND_DEVICE		1		/* Max number of NAND */
 
+/* NAND型号定义 */
 //# define CONFIG_NAND_MICRON    //for 美光NAND MT29F2G16
 # define CONFIG_NAND_SAMSUNG	 //for 三星NAND K9F2G08U0B 
+
+#if defined(CONFIG_NAND_SAMSUNG)
+# define GPMC_NAND_ECC_LP_x8_LAYOUT		1
+#endif
+
+#if defined(CONFIG_NAND_MICRON)
+# define GPMC_NAND_ECC_LP_x16_LAYOUT	1
+#endif
+
 #endif							/* devices */
 
 /* ENV in NAND */
@@ -226,16 +240,16 @@
 # undef CONFIG_ENV_IS_NOWHERE
 # define CONFIG_ENV_IS_IN_NAND		1
 # ifdef CONFIG_ENV_IS_IN_NAND
-#  define CONFIG_SYS_MAX_FLASH_SECT	520		/* max number of sectors in a chip */
+#  define CONFIG_SYS_MAX_FLASH_SECT		520		/* max number of sectors in a chip */
 #  define CONFIG_SYS_MAX_FLASH_BANKS	2		/* max number of flash banks */
-#  define CONFIG_SYS_MONITOR_LEN	(256 << 10)	/* Reserve 2 sectors */
-#  define CONFIG_SYS_FLASH_BASE		boot_flash_base
+#  define CONFIG_SYS_MONITOR_LEN		(256 << 10)	/* Reserve 2 sectors */
+#  define CONFIG_SYS_FLASH_BASE			boot_flash_base
 /* Monitor at start of flash */
 #  define CONFIG_SYS_MONITOR_BASE	CONFIG_SYS_FLASH_BASE
-#  define MNAND_ENV_OFFSET		0x260000	/* environment starts here */
+#  define MNAND_ENV_OFFSET			0x260000	/* environment starts here */
 #  define CONFIG_SYS_ENV_SECT_SIZE	boot_flash_sec
-#  define CONFIG_ENV_OFFSET		boot_flash_off
-#  define CONFIG_ENV_ADDR		MNAND_ENV_OFFSET
+#  define CONFIG_ENV_OFFSET			boot_flash_off
+#  define CONFIG_ENV_ADDR			MNAND_ENV_OFFSET
 #  define CONFIG_NOFLASH
 # endif
 
@@ -248,7 +262,10 @@ extern unsigned int boot_flash_type;
 # endif
 #endif /* NAND support */
 
-/* SPI support */
+
+//--------------------------------------------------------------------//
+//					SPI support
+//--------------------------------------------------------------------//
 #ifdef CONFIG_SPI
 # define CONFIG_OMAP3_SPI
 # define CONFIG_MTD_DEVICE
@@ -267,14 +284,17 @@ extern unsigned int boot_flash_type;
 #  define SPI_FLASH_ERASE_SIZE		(4 * 1024) /* sector size of SPI flash */
 #  define CONFIG_SYS_ENV_SECT_SIZE	(2 * SPI_FLASH_ERASE_SIZE) /* env size */
 #  define CONFIG_ENV_SECT_SIZE		(CONFIG_SYS_ENV_SECT_SIZE)
-#  define CONFIG_ENV_OFFSET		(64 * SPI_FLASH_ERASE_SIZE)
-#  define CONFIG_ENV_ADDR		(CONFIG_ENV_OFFSET)
+#  define CONFIG_ENV_OFFSET			(64 * SPI_FLASH_ERASE_SIZE)
+#  define CONFIG_ENV_ADDR			(CONFIG_ENV_OFFSET)
 #  define CONFIG_SYS_MAX_FLASH_SECT	(1024) /* no of sectors in SPI flash */
 #  define CONFIG_SYS_MAX_FLASH_BANKS	(1)
 # endif
 #endif /* SPI support */
 
-/* NOR support */
+
+//--------------------------------------------------------------------//
+//					NOR support
+//--------------------------------------------------------------------//
 #if defined(CONFIG_NOR)
 # undef CONFIG_CMD_NAND			/* Remove NAND support */
 # undef CONFIG_NAND_TI81XX
@@ -299,7 +319,9 @@ extern unsigned int boot_flash_type;
 # define CONFIG_MTD_DEVICE
 #endif	/* NOR support */
 
-/* I2C support */
+//--------------------------------------------------------------------//
+//					I2C support
+//--------------------------------------------------------------------//
 #ifdef CONFIG_I2C
 # define CONFIG_CMD_I2C
 # define CONFIG_HARD_I2C			1
@@ -309,14 +331,18 @@ extern unsigned int boot_flash_type;
 # define CONFIG_SYS_I2C_BUS_SELECT	1
 # define CONFIG_DRIVER_TI81XX_I2C	1
 
-/* EEPROM definitions */
+//--------------------------------------------------------------------//
+//					EEPROM support
+//--------------------------------------------------------------------//
 # define CONFIG_SYS_I2C_EEPROM_ADDR_LEN		3
 # define CONFIG_SYS_I2C_EEPROM_ADDR		0x50
 # define CONFIG_SYS_EEPROM_PAGE_WRITE_BITS	6
 # define CONFIG_SYS_EEPROM_PAGE_WRITE_DELAY_MS	20
 #endif
 
-/* HSMMC Definitions */
+//--------------------------------------------------------------------//
+//					HSMMC support
+//--------------------------------------------------------------------//
 #ifdef CONFIG_MMC
 # define CONFIG_OMAP3_MMC	1
 # define CONFIG_CMD_MMC		1
@@ -324,7 +350,9 @@ extern unsigned int boot_flash_type;
 # define CONFIG_CMD_FAT		1
 #endif
 
-/* Unsupported features */
+//--------------------------------------------------------------------//
+//					Unsupported features
+//--------------------------------------------------------------------//
 #undef CONFIG_USE_IRQ
 
 #endif	  /* ! __CONFIG_TI816X_EVM_H */
