@@ -91,6 +91,7 @@ struct ctrl_id {
 
 #ifndef __KERNEL_STRICT_NAMES
 #ifndef __ASSEMBLY__
+/* dm8168 GPMC ¼Ä´æÆ÷¶¨Òå */
 struct gpmc_cs {
 	u32 config1;		/* 0x00 */
 	u32 config2;		/* 0x04 */

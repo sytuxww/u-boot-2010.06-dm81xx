@@ -2602,7 +2602,22 @@ static void nand_set_defaults(struct nand_chip *chip, int busw)
 }
 
 /*
- * Get the flash and manufacturer id and lookup if the type is supported
+ * 
+ */
+ /*
+ * 函数名 : nand_get_flash_type
+ * 
+ * 参数 : 
+ *			struct mtd_info *mtd   mtd设备信息
+ *			struct nand_chip *nand nand芯片信息
+ *			int busw		  		  bus总线宽度
+ *			int *maf_id			  生产厂家ID
+ *
+ * 返回值 : 无
+ *
+ * 描述:
+ *		Get the flash and manufacturer id and lookup if the type is supported
+ *		读取flash的生产ID并查看类型是否合适。
  */
 static struct nand_flash_dev *nand_get_flash_type(struct mtd_info *mtd,
 						  struct nand_chip *chip,

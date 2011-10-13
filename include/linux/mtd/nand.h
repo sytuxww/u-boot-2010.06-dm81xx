@@ -70,14 +70,15 @@ extern void nand_wait_ready(struct mtd_info *mtd);
 #define NAND_CTRL_ALE		(NAND_NCE | NAND_ALE)
 #define NAND_CTRL_CHANGE	0x80
 
-/*
- * Standard NAND flash commands
- */
+//-------------------------------------------------------------//
+// 			Standard NAND flash commands
+//			标准的NAND flash 命令
+//-------------------------------------------------------------//
 #define NAND_CMD_READ0		0
 #define NAND_CMD_READ1		1
 #define NAND_CMD_RNDOUT		5
 #define NAND_CMD_PAGEPROG	0x10
-#define NAND_CMD_READOOB	0x50
+#define NAND_CMD_READOOB		0x50
 #define NAND_CMD_ERASE1		0x60
 #define NAND_CMD_STATUS		0x70
 #define NAND_CMD_STATUS_MULTI	0x71
@@ -429,17 +430,17 @@ struct nand_chip {
 };
 
 /*
- * NAND Flash Manufacturer ID Codes
+ * NAND Flash 生产厂家ID
  */
-#define NAND_MFR_TOSHIBA	0x98
-#define NAND_MFR_SAMSUNG	0xec
-#define NAND_MFR_FUJITSU	0x04
+#define NAND_MFR_TOSHIBA		0x98
+#define NAND_MFR_SAMSUNG		0xec
+#define NAND_MFR_FUJITSU		0x04
 #define NAND_MFR_NATIONAL	0x8f
-#define NAND_MFR_RENESAS	0x07
-#define NAND_MFR_STMICRO	0x20
+#define NAND_MFR_RENESAS		0x07
+#define NAND_MFR_STMICRO		0x20
 #define NAND_MFR_HYNIX		0xad
 #define NAND_MFR_MICRON		0x2c
-#define NAND_MFR_AMD		0x01
+#define NAND_MFR_AMD			0x01
 
 /**
  * struct nand_flash_dev - NAND Flash Device ID Structure

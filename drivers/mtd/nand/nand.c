@@ -39,6 +39,20 @@ static ulong base_address[CONFIG_SYS_MAX_NAND_DEVICE] = CONFIG_SYS_NAND_BASE_LIS
 static const char default_nand_name[] = "nand";
 static __attribute__((unused)) char dev_name[CONFIG_SYS_MAX_NAND_DEVICE][8];
 
+/*
+ * 函数名 : nand_init_chip
+ * 
+ * 参数 : 
+ *			struct mtd_info *mtd   mtd设备信息
+ *			struct nand_chip *nand nand芯片信息
+ *			ulong base_addr		  基地址
+ *
+ * 返回值 : 无
+ *
+ * 描述:
+ *		调用底层nand驱动中的board_nand_init()函数，进行最终的初始化过程,所有的
+ *		nand驱动必须提供这个函数。
+ */
 static void nand_init_chip(struct mtd_info *mtd, struct nand_chip *nand,
 			   ulong base_addr)
 {
@@ -50,6 +64,7 @@ static void nand_init_chip(struct mtd_info *mtd, struct nand_chip *nand,
 	mtd->priv = nand;
 
 	nand->IO_ADDR_R = nand->IO_ADDR_W = (void  __iomem *)base_addr;
+	/* board_nand_init()函数位于drive/mtd/nand/文件夹下面 */
 	if (board_nand_init(nand) == 0) {
 		if (nand_scan(mtd, maxchips) == 0) {
 			if (!mtd->name)
@@ -76,7 +91,16 @@ static void nand_init_chip(struct mtd_info *mtd, struct nand_chip *nand,
 	}
 
 }
-
+/*
+ * 函数名 : nand_init
+ * 
+ * 参数 : 无
+ *
+ * 返回值 : 无
+ *
+ * 描述:
+ *		根据CONFIG_SYS_MAX_NAND_DEVICE定义调用nand_init_chip()初始化底层NAND。
+ */
 void nand_init(void)
 {
 	int i;

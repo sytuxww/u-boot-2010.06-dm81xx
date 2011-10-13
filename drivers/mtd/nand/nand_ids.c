@@ -11,33 +11,33 @@
 
 #include <common.h>
 #include <linux/mtd/nand.h>
+
+
 /*
-*	Chip ID list
-*
-*	Name. ID code, pagesize, chipsize in MegaByte, eraseblock size,
-*	options
-*
-*	Pagesize; 0, 256, 512
-*	0	get this information from the extended chip ID
-+	256	256 Byte page size
-*	512	512 Byte page size
-*/
+ * NAND flash 芯片ID列表
+ *
+ * 名称	ID码	页大小	芯片容量(MB)	擦除块大小		选项
+ *
+ * 页大小:0,256,512	如果为0则从扩展芯片ID中得到信息
+ * 
+ * 基本上支持了世面上所有NAND，如不支持则需自行添加。
+ */
 struct nand_flash_dev nand_flash_ids[] = {
 
 #ifdef CONFIG_MTD_NAND_MUSEUM_IDS
 	{"NAND 1MiB 5V 8-bit",		0x6e, 256, 1, 0x1000, 0},
 	{"NAND 2MiB 5V 8-bit",		0x64, 256, 2, 0x1000, 0},
 	{"NAND 4MiB 5V 8-bit",		0x6b, 512, 4, 0x2000, 0},
-	{"NAND 1MiB 3,3V 8-bit",	0xe8, 256, 1, 0x1000, 0},
-	{"NAND 1MiB 3,3V 8-bit",	0xec, 256, 1, 0x1000, 0},
-	{"NAND 2MiB 3,3V 8-bit",	0xea, 256, 2, 0x1000, 0},
+	{"NAND 1MiB 3,3V 8-bit",		0xe8, 256, 1, 0x1000, 0},
+	{"NAND 1MiB 3,3V 8-bit",		0xec, 256, 1, 0x1000, 0},
+	{"NAND 2MiB 3,3V 8-bit",		0xea, 256, 2, 0x1000, 0},
 	{"NAND 4MiB 3,3V 8-bit", 	0xd5, 512, 4, 0x2000, 0},
-	{"NAND 4MiB 3,3V 8-bit",	0xe3, 512, 4, 0x2000, 0},
-	{"NAND 4MiB 3,3V 8-bit",	0xe5, 512, 4, 0x2000, 0},
-	{"NAND 8MiB 3,3V 8-bit",	0xd6, 512, 8, 0x2000, 0},
+	{"NAND 4MiB 3,3V 8-bit",		0xe3, 512, 4, 0x2000, 0},
+	{"NAND 4MiB 3,3V 8-bit",		0xe5, 512, 4, 0x2000, 0},
+	{"NAND 8MiB 3,3V 8-bit",		0xd6, 512, 8, 0x2000, 0},
 
-	{"NAND 8MiB 1,8V 8-bit",	0x39, 512, 8, 0x2000, 0},
-	{"NAND 8MiB 3,3V 8-bit",	0xe6, 512, 8, 0x2000, 0},
+	{"NAND 8MiB 1,8V 8-bit",		0x39, 512, 8, 0x2000, 0},
+	{"NAND 8MiB 3,3V 8-bit",		0xe6, 512, 8, 0x2000, 0},
 	{"NAND 8MiB 1,8V 16-bit",	0x49, 512, 8, 0x2000, NAND_BUSWIDTH_16},
 	{"NAND 8MiB 3,3V 16-bit",	0x59, 512, 8, 0x2000, NAND_BUSWIDTH_16},
 #endif
@@ -99,14 +99,14 @@ struct nand_flash_dev nand_flash_ids[] = {
 	{"NAND 512MiB 3,3V 16-bit",	0xCC, 0, 512, 0, LP_OPTIONS16},
 
 	/* 8 Gigabit */
-	{"NAND 1GiB 1,8V 8-bit",	0xA3, 0, 1024, 0, LP_OPTIONS},
-	{"NAND 1GiB 3,3V 8-bit",	0xD3, 0, 1024, 0, LP_OPTIONS},
+	{"NAND 1GiB 1,8V 8-bit",		0xA3, 0, 1024, 0, LP_OPTIONS},
+	{"NAND 1GiB 3,3V 8-bit",		0xD3, 0, 1024, 0, LP_OPTIONS},
 	{"NAND 1GiB 1,8V 16-bit",	0xB3, 0, 1024, 0, LP_OPTIONS16},
 	{"NAND 1GiB 3,3V 16-bit",	0xC3, 0, 1024, 0, LP_OPTIONS16},
 
 	/* 16 Gigabit */
-	{"NAND 2GiB 1,8V 8-bit",	0xA5, 0, 2048, 0, LP_OPTIONS},
-	{"NAND 2GiB 3,3V 8-bit",	0xD5, 0, 2048, 0, LP_OPTIONS},
+	{"NAND 2GiB 1,8V 8-bit",		0xA5, 0, 2048, 0, LP_OPTIONS},
+	{"NAND 2GiB 3,3V 8-bit",		0xD5, 0, 2048, 0, LP_OPTIONS},
 	{"NAND 2GiB 1,8V 16-bit",	0xB5, 0, 2048, 0, LP_OPTIONS16},
 	{"NAND 2GiB 3,3V 16-bit",	0xC5, 0, 2048, 0, LP_OPTIONS16},
 
@@ -129,17 +129,18 @@ struct nand_flash_dev nand_flash_ids[] = {
 };
 
 /*
-*	Manufacturer ID list
-*/
+ *	厂商ID列表
+ *
+ */
 struct nand_manufacturers nand_manuf_ids[] = {
-	{NAND_MFR_TOSHIBA, "Toshiba"},
-	{NAND_MFR_SAMSUNG, "Samsung"},
-	{NAND_MFR_FUJITSU, "Fujitsu"},
+	{NAND_MFR_TOSHIBA, 	"Toshiba"},
+	{NAND_MFR_SAMSUNG, 	"Samsung"},
+	{NAND_MFR_FUJITSU, 	"Fujitsu"},
 	{NAND_MFR_NATIONAL, "National"},
-	{NAND_MFR_RENESAS, "Renesas"},
-	{NAND_MFR_STMICRO, "ST Micro"},
-	{NAND_MFR_HYNIX, "Hynix"},
-	{NAND_MFR_MICRON, "Micron"},
-	{NAND_MFR_AMD, "AMD"},
+	{NAND_MFR_RENESAS, 	"Renesas"},
+	{NAND_MFR_STMICRO, 	"ST Micro"},
+	{NAND_MFR_HYNIX, 	"Hynix"},
+	{NAND_MFR_MICRON, 	"Micron"},
+	{NAND_MFR_AMD, 		"AMD"},
 	{0x0, "Unknown"}
 };

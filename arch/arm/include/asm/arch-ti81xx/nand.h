@@ -1,4 +1,4 @@
-/*
+ /*
  * (C) Copyright 2010-2011 Texas Instruments, <www.ti.com>
  * Mansoor Ahamed <mansoor.ahamed@ti.com>
  *
@@ -22,6 +22,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  * MA 02111-1307 USA
  */
+
+//0 2011年10月13日 nand相关定义，包含了ECC布局。
+ 
 #ifndef __ASM_ARCH_OMAP_GPMC_H
 #define __ASM_ARCH_OMAP_GPMC_H
 
@@ -35,7 +38,9 @@
 #define ECCSIZE0		(ECCSIZE512BYTE << 12)
 #define ECCSIZE0SEL		(0x000 << 0)
 
-/* Generic ECC Layouts */
+//--------------------------------------------------------//
+//				Generic ECC Layouts
+//--------------------------------------------------------//
 /* Large Page x8 NAND device Layout */
 #ifdef GPMC_NAND_ECC_LP_x8_LAYOUT
 #define GPMC_NAND_HW_ECC_LAYOUT {\
