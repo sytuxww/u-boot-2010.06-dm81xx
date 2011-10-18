@@ -51,7 +51,7 @@ volatile unsigned int boot_flash_env_addr;
 struct gpmc *gpmc_cfg;
 
 #if defined(CONFIG_CMD_NAND)
-
+/* 美光NAND MT29F2G16AADWPD */
 #if defined(CONFIG_NAND_MICRON)
 static const u32 gpmc_m_nand[GPMC_MAX_REG] = {
 	M_NAND_GPMC_CONFIG1,
@@ -62,7 +62,7 @@ static const u32 gpmc_m_nand[GPMC_MAX_REG] = {
 	M_NAND_GPMC_CONFIG6, 0
 };
 #endif
-
+/* 三星NAND K9F2G08U0B */
 #if defined(CONFIG_NAND_SAMSUNG)
 static const u32 gpmc_m_nand[GPMC_MAX_REG] = {
 	SMNAND_GPMC_CONFIG1,
@@ -81,10 +81,10 @@ static const u32 gpmc_m_nand[GPMC_MAX_REG] = {
  * 函数: enable_gpmc_cs_config
  *
  * 参数: 
- *		const u32 *gpmc_config  GPMC参数设置
+ *		const u32 *gpmc_config  	GPMC参数设置
  *		struct gpmc_cs *cs		CPU寄存器
- *		u32 base				基地址
- *		u32 size				大小
+ *		u32 base					基地址
+ *		u32 size					大小
  *
  * 返回值: 无
  *

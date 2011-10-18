@@ -94,7 +94,7 @@
 #define CONFIG_SYS_NAND_RESET_CNT 200000
 #endif
 
-/* Define default oob placement schemes for large and small page devices */
+/* oob 位置大小页设备默认配置 */
 static struct nand_ecclayout nand_oob_8 = {
 	.eccbytes = 3,
 	.eccpos = {0, 1, 2},
@@ -185,7 +185,11 @@ static void nand_release_device (struct mtd_info *mtd)
 	this->select_chip(mtd, -1);	/* De-select the NAND device */
 }
 #endif
-
+//------------------------------------------------------------------------------//
+//
+//						下面为nand读写默认函数
+//
+//------------------------------------------------------------------------------//
 /**
  * nand_read_byte - [DEFAULT] read one byte from the chip
  * @mtd:	MTD device structure
@@ -528,6 +532,7 @@ void nand_wait_ready(struct mtd_info *mtd)
 }
 #endif
 
+/* 发送nand命令 */
 /**
  * nand_command - [DEFAULT] Send command to NAND device
  * @mtd:	MTD device structure
@@ -632,6 +637,7 @@ static void nand_command(struct mtd_info *mtd, unsigned int command,
 	nand_wait_ready(mtd);
 }
 
+/* 发送nand大页设备 */
 /**
  * nand_command_lp - [DEFAULT] Send command to NAND large page device
  * @mtd:	MTD device structure
@@ -803,6 +809,7 @@ static int nand_get_device (struct nand_chip *this, struct mtd_info *mtd, int ne
 }
 #endif
 
+/* 等待命令完成 */
 /**
  * nand_wait - [DEFAULT]  wait until the command is done
  * @mtd:	MTD device structure
@@ -892,6 +899,7 @@ static int nand_wait(struct mtd_info *mtd, struct nand_chip *this)
 }
 #endif
 
+/* 读取原始页不包含ecc */
 /**
  * nand_read_page_raw - [Intern] read raw page data without ecc
  * @mtd:	mtd info structure
@@ -2553,8 +2561,17 @@ static void nand_resume(struct mtd_info *mtd)
 		       "in suspended state\n");
 }
 
-/*
- * Set default functions
+ /*
+ * 函数名 : nand_set_defaults
+ * 
+ * 参数 : 
+ *			struct nand_chip *nand nand芯片信息
+ *			int busw		  		  bus总线宽度
+ *
+ * 返回值 : 无
+ *
+ * 描述:
+ *		设置默认的读写函数。在nand_scan_ident()调用。
  */
 static void nand_set_defaults(struct nand_chip *chip, int busw)
 {
@@ -2601,9 +2618,6 @@ static void nand_set_defaults(struct nand_chip *chip, int busw)
 
 }
 
-/*
- * 
- */
  /*
  * 函数名 : nand_get_flash_type
  * 
@@ -2627,7 +2641,7 @@ static struct nand_flash_dev *nand_get_flash_type(struct mtd_info *mtd,
 	int i, dev_id, maf_idx;
 	int tmp_id, tmp_manf;
 
-	/* Select the device */
+	/* 选择设备 */
 	chip->select_chip(mtd, 0);
 
 	/*
@@ -2636,14 +2650,15 @@ static struct nand_flash_dev *nand_get_flash_type(struct mtd_info *mtd,
 	 */
 	chip->cmdfunc(mtd, NAND_CMD_RESET, -1, -1);
 
-	/* Send the command for reading device ID */
+	/* 发送读取设备ID命令 0x90 */
 	chip->cmdfunc(mtd, NAND_CMD_READID, 0x00, -1);
 
-	/* Read manufacturer and device IDs */
+	/* 读取生产厂家和设备ID */
 	*maf_id = chip->read_byte(mtd);
 	dev_id = chip->read_byte(mtd);
 
-	/* Try again to make sure, as some systems the bus-hold or other
+	/* 
+	 * Try again to make sure, as some systems the bus-hold or other
 	 * interface concerns can cause random data which looks like a
 	 * possibly credible NAND flash to appear. If the two results do
 	 * not match, ignore the device completely.
@@ -2663,7 +2678,7 @@ static struct nand_flash_dev *nand_get_flash_type(struct mtd_info *mtd,
 		return ERR_PTR(-ENODEV);
 	}
 
-	/* Lookup the flash id */
+	/* 寻找Flash ID */
 	for (i = 0; nand_flash_ids[i].name != NULL; i++) {
 		if (dev_id == nand_flash_ids[i].id) {
 			type =  &nand_flash_ids[i];
@@ -2679,23 +2694,41 @@ static struct nand_flash_dev *nand_get_flash_type(struct mtd_info *mtd,
 
 	chip->chipsize = (uint64_t)type->chipsize << 20;
 
-	/* Newer devices have all the information in additional id bytes */
+	/* 新型的设备在添加的ID中有所有的芯片信息 */
 	if (!type->pagesize) {
 		int extid;
-		/* The 3rd id byte holds MLC / multichip data */
+		/* 第三ID字节包含MLC/多芯片信息 */
 		chip->cellinfo = chip->read_byte(mtd);
 		/* The 4th id byte is the important one */
-		extid = chip->read_byte(mtd);
-		/* Calc pagesize */
+		/* 第四ID字节最重要 */
+		extid = chip->read_byte(mtd);/
+		/* 
+			计算页大小，
+			bit1  bit0  size
+			0		0		1k
+			0		1		2k
+			1		0		4k
+			1		1		8k
+		*/
 		mtd->writesize = 1024 << (extid & 0x3);
 		extid >>= 2;
-		/* Calc oobsize */
+		/*
+			计算oob大小
+			bit2
+		 */
 		mtd->oobsize = (8 << (extid & 0x01)) * (mtd->writesize >> 9);
 		extid >>= 2;
-		/* Calc blocksize. Blocksize is multiples of 64KiB */
+		/* 
+			计算页大小，
+			bit5  bit4  size
+			0		0	  64k
+			0		1	  128k
+			1		0	  256k
+			1		1	  512k
+		*/
 		mtd->erasesize = (64 * 1024) << (extid & 0x03);
 		extid >>= 2;
-		/* Get buswidth information */
+		/* 总线宽度信息 bit6 0 8位 1 16位 */
 		busw = (extid & 0x01) ? NAND_BUSWIDTH_16 : 0;
 
 	} else {
@@ -2708,7 +2741,7 @@ static struct nand_flash_dev *nand_get_flash_type(struct mtd_info *mtd,
 		busw = type->options & NAND_BUSWIDTH_16;
 	}
 
-	/* Try to identify manufacturer */
+	/* 尝试识别生产厂家 */
 	for (maf_idx = 0; nand_manuf_ids[maf_idx].id != 0x0; maf_idx++) {
 		if (nand_manuf_ids[maf_idx].id == *maf_id)
 			break;
@@ -2740,7 +2773,7 @@ static struct nand_flash_dev *nand_get_flash_type(struct mtd_info *mtd,
 	else
 		chip->chip_shift = ffs((unsigned)(chip->chipsize >> 32)) + 31;
 
-	/* Set the bad block position */
+	/* 设置坏块位置 */
 	chip->badblockpos = mtd->writesize > 512 ?
 		NAND_LARGE_BADBLOCK_POS : NAND_SMALL_BADBLOCK_POS;
 
