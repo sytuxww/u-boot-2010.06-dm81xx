@@ -132,7 +132,7 @@ int board_init(void)
 {
 	u32 regVal;
 
-	/* Do the required pin-muxing before modules are setup */
+	/* 在模块设置之前做必要的管脚配置 */
 	set_muxconf_regs();
 
 	if (PG2_1 == get_cpu_rev()) {
@@ -159,6 +159,7 @@ int board_init(void)
 
 	/* address of boot parameters */
 	gd->bd->bi_boot_params = PHYS_DRAM_1 + 0x100;
+	/* GPMC 初始化 for NAND */
 	gpmc_init();
 	return 0;
 }
@@ -231,6 +232,7 @@ int misc_init_r (void)
 }
 
 #ifdef CONFIG_TI814X_CONFIG_DDR
+/* 配置DM814x的DDR 时序等 */
 static void config_ti814x_ddr(void)
 {
 	int macro, phy_num;
@@ -906,6 +908,7 @@ static void cpsw_pad_config()
 
 /*
  * baord specific muxing of pins
+ * 开发板上管脚功能选择，具体配置见mux.h
  */
 void set_muxconf_regs(void)
 {

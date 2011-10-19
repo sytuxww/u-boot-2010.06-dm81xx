@@ -684,8 +684,9 @@ void prcm_init(u32 in_ddr)
 #endif
 }
 
+/* π‹Ω≈≈‰÷√ºƒ¥Ê∆˜ */
 #define PADCTRL_BASE 0x48140000
-
+/* EMAC[1] π‹Ω≈≈‰÷√ */
 #define PAD204_CNTRL  (*(volatile unsigned int *)(PADCTRL_BASE + 0x0B2c))
 #define PAD205_CNTRL  (*(volatile unsigned int *)(PADCTRL_BASE + 0x0B30))
 #define PAD206_CNTRL  (*(volatile unsigned int *)(PADCTRL_BASE + 0x0B34))
@@ -710,7 +711,7 @@ void prcm_init(u32 in_ddr)
 #define PAD225_CNTRL  (*(volatile unsigned int *)(PADCTRL_BASE + 0x0B80))
 #define PAD226_CNTRL  (*(volatile unsigned int *)(PADCTRL_BASE + 0x0B84))
 #define PAD227_CNTRL  (*(volatile unsigned int *)(PADCTRL_BASE + 0x0B88))
-
+/* EMAC[0] π‹Ω≈≈‰÷√ */
 #define PAD232_CNTRL  (*(volatile unsigned int *)(PADCTRL_BASE + 0x0B9C))
 #define PAD233_CNTRL  (*(volatile unsigned int *)(PADCTRL_BASE + 0x0BA0))
 #define PAD234_CNTRL  (*(volatile unsigned int *)(PADCTRL_BASE + 0x0BA4))
