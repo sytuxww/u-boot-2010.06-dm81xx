@@ -81,6 +81,7 @@ static const u_char nand_ecc_precalc_table[] = {
 	0x00, 0x55, 0x56, 0x03, 0x59, 0x0c, 0x0f, 0x5a, 0x5a, 0x0f, 0x0c, 0x59, 0x03, 0x56, 0x55, 0x00
 };
 
+/* 计算nand ecc*/
 /**
  * nand_calculate_ecc - [NAND Interface] Calculate 3-byte ECC for 256-byte block
  * @mtd:	MTD block structure
@@ -154,7 +155,7 @@ static inline int countbits(uint32_t byte)
 		res += byte & 0x01;
 	return res;
 }
-
+/* 校验一位 */
 /**
  * nand_correct_data - [NAND Interface] Detect and correct bit error(s)
  * @mtd:	MTD block structure
