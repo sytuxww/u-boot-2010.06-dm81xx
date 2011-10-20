@@ -231,6 +231,12 @@ int misc_init_r (void)
 	return 0;
 }
 
+
+//------------------------------------------------------------------//
+//
+//			DDR 配置
+//
+//------------------------------------------------------------------//
 #ifdef CONFIG_TI814X_CONFIG_DDR
 /* 配置DM814x的DDR 时序等 */
 static void config_ti814x_ddr(void)
@@ -328,7 +334,15 @@ static void config_ti814x_ddr(void)
 	}
 	__raw_writel(0x80000000, DMM_PAT_BASE_ADDR);
 
+
+	//------------------------------------------------------------------//
+	//
+	//			根据CPU的型号和配置选择不同的DDR时序配置
+	//
+	//------------------------------------------------------------------//
 	if (!is_ddr3()) {
+		//--------------------DDR3时序配置---------------------------//
+		
 		/*Program EMIF0 CFG Registers*/
 		__raw_writel(0x7, EMIF4_0_DDR_PHY_CTRL_1); /* RL =5 */
 		__raw_writel(0x7, EMIF4_0_DDR_PHY_CTRL_1_SHADOW); /* RL =5 */
@@ -354,7 +368,11 @@ static void config_ti814x_ddr(void)
 		__raw_writel(0x10000C30, EMIF4_1_SDRAM_REF_CTRL);
 		__raw_writel(0x10000C30, EMIF4_1_SDRAM_REF_CTRL_SHADOW);
 		__raw_writel(0x40801AB2, EMIF4_1_SDRAM_CONFIG); /* CL = 6 */
+		
+		//--------------------DDR3时序配置---------------------------//
 	} else {
+		//--------------------DDR2时序配置---------------------------//
+		
 		/*Program EMIF0 CFG Registers*/
 		__raw_writel(0xC, EMIF4_0_DDR_PHY_CTRL_1); /* RL =11 */
 		__raw_writel(0xC, EMIF4_0_DDR_PHY_CTRL_1_SHADOW); /* RL =11 */
@@ -380,11 +398,21 @@ static void config_ti814x_ddr(void)
 		__raw_writel(0x10001860, EMIF4_1_SDRAM_REF_CTRL);
 		__raw_writel(0x10001860, EMIF4_1_SDRAM_REF_CTRL_SHADOW);
 		__raw_writel(0x62833AB2, EMIF4_1_SDRAM_CONFIG); /* CL = 11 */
+		
+		//--------------------DDR2时序配置---------------------------//
 	}
 }
 
 #endif
+//------------------DDR End---------------------------------------//
 
+
+
+//------------------------------------------------------------------//
+//
+//		PLL时钟配置
+//
+//------------------------------------------------------------------//
 #ifdef CONFIG_SETUP_PLL
 static void audio_pll_config()
 {
@@ -447,7 +475,7 @@ static void pcie_pll_config()
 
 }
 #endif
-
+/* SATA PLL 时钟配置 */
 static void sata_pll_config()
 {
 	__raw_writel(0xC12C003C, SATA_PLLCFG1);
@@ -472,7 +500,7 @@ static void sata_pll_config()
 	while(((__raw_readl(SATA_PLLSTATUS) & 0x01) == 0x0));
 
 }
-
+/* USB PLL 时钟配置 */
 static void usb_pll_config()
 {
 	pll_config(USB_PLL_BASE,
@@ -573,6 +601,7 @@ static void pll_config(u32 base, u32 n, u32 m, u32 m2, u32 clkctrl_val)
 
 /*
  * Enable the clks & power for perifs (TIMER1, UART0,...)
+ * 外设(定时器、串口...)时钟和电源使能
  */
 void per_clocks_enable(void)
 {
@@ -646,6 +675,7 @@ void per_clocks_enable(void)
 
 /*
  * inits clocks for PRCM as defined in clocks.h
+ * 根据clock.h中的定义初始化PRCM
  */
 void prcm_init(u32 in_ddr)
 {
@@ -674,7 +704,14 @@ void prcm_init(u32 in_ddr)
 	per_clocks_enable();
 #endif
 }
+//---------------------------PLL End---------------------------------//
 
+
+//-------------------------------------------------------------------//
+//
+//			以太网管脚配置
+//
+//-------------------------------------------------------------------//
 #define PADCTRL_BASE 0x48140000
 
 #define PAD204_CNTRL  (*(volatile unsigned int *)(PADCTRL_BASE + 0x0B2c))
@@ -904,8 +941,14 @@ static void cpsw_pad_config()
 		PAD258_CNTRL = (volatile unsigned int) (BIT(18) | BIT(0));
 	}
 }
+//---------------------EMAC End---------------------------------------//
 
 
+//--------------------------------------------------------------------//
+//
+//			管脚配置
+//
+//--------------------------------------------------------------------//
 /*
  * baord specific muxing of pins
  * 开发板上管脚功能选择，具体配置见mux.h
@@ -942,6 +985,7 @@ void unlock_pll_control_mmr()
 
 /*
  * early system init of muxing and clocks.
+ * 调用上述函数完成初级系统管脚配置和时钟配置。
  */
 void s_init(u32 in_ddr)
 {
@@ -972,6 +1016,12 @@ void reset_cpu (ulong addr)
 	__raw_writel(addr, PRM_DEVICE_RSTCTRL);
 }
 
+
+//-------------------------------------------------------------------//
+//
+//			板级以太网PHY初始化
+//
+//-------------------------------------------------------------------//
 #ifdef CONFIG_DRIVER_TI_CPSW
 
 #define PHY_CONF_REG           22
@@ -1125,6 +1175,8 @@ int board_eth_init(bd_t *bis)
 	return cpsw_register(&cpsw_data);
 }
 #endif
+//--------------------------PHY ETH End--------------------------------//
+
 
 #ifdef CONFIG_NAND_TI81XX
 /******************************************************************************

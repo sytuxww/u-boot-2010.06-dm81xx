@@ -260,6 +260,7 @@ void ddr_delay(int d)
 #ifdef CONFIG_TI816X_EVM_DDR3
 /*********************************************************************
  * Init DDR3 on TI816X EVM
+ * 初始化在TI816x EVM板上的DDR3
  *********************************************************************/
 static void ddr_init_settings(int emif)
 {
