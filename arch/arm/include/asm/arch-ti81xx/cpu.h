@@ -21,7 +21,11 @@
  * MA 02111-1307 USA
  *
  */
-
+//---------------------------------------------------------------------//
+//
+//		CPU ¼Ä´æÆ÷µØÖ·¶¨Òå
+//
+//---------------------------------------------------------------------//
 #ifndef _TI81XX_CPU_H
 #define _TI81XX_CPU_H
 
@@ -42,8 +46,8 @@
 /* Timer register bits */
 #define TCLR_ST				BIT(0)		/* Start=1 Stop=0 */
 #define TCLR_AR				BIT(1)		/* Auto reload */
-#define TCLR_PRE			BIT(5)		/* Pre-scaler enable */
-#define TCLR_PTV_SHIFT			(2)		/* Pre-scaler shift value */
+#define TCLR_PRE				BIT(5)		/* Pre-scaler enable */
+#define TCLR_PTV_SHIFT		(2)		/* Pre-scaler shift value */
 #define TCLR_PRE_DISABLE		CL_BIT(5)	/* Pre-scalar disable */
 
 /* Control */
@@ -53,14 +57,14 @@
 #define DEVICE_MASK			(BIT(8) | BIT(9) | BIT(10))
 #define TST_DEVICE			0x0
 #define EMU_DEVICE			0x1
-#define HS_DEVICE			0x2
-#define GP_DEVICE			0x3
+#define HS_DEVICE				0x2
+#define GP_DEVICE				0x3
 
 /* cpu-id for TI81XX family */
 #define TI8168				0xb81e
 #define TI8148				0xb8f2
 
-#define DEVICE_ID			(CTRL_BASE + 0x0600)
+#define DEVICE_ID				(CTRL_BASE + 0x0600)
 /* This gives the status of the boot mode pins on the evm */
 #define SYSBOOT_MASK			(BIT(0) | BIT(1) | BIT(2) |BIT(3) |BIT(4))
 
@@ -103,55 +107,55 @@
 
 #define VIDEOPLL_CTRL			(CTRL_BASE + 0x0470)
 #define VIDEOPLL_PWD			(CTRL_BASE + 0x0474)
-#define VIDEOPLL_FREQ1			(CTRL_BASE + 0x0478)
+#define VIDEOPLL_FREQ1		(CTRL_BASE + 0x0478)
 #define VIDEOPLL_DIV1			(CTRL_BASE + 0x047C)
-#define VIDEOPLL_FREQ2			(CTRL_BASE + 0x0480)
+#define VIDEOPLL_FREQ2		(CTRL_BASE + 0x0480)
 #define VIDEOPLL_DIV2			(CTRL_BASE + 0x0484)
-#define VIDEOPLL_FREQ3			(CTRL_BASE + 0x0488)
+#define VIDEOPLL_FREQ3		(CTRL_BASE + 0x0488)
 #define VIDEOPLL_DIV3			(CTRL_BASE + 0x048C)
 
 #define AUDIOPLL_CTRL			(CTRL_BASE + 0x04A0)
 #define AUDIOPLL_PWD			(CTRL_BASE + 0x04A4)
-#define AUDIOPLL_FREQ2			(CTRL_BASE + 0x04B0)
+#define AUDIOPLL_FREQ2		(CTRL_BASE + 0x04B0)
 #define AUDIOPLL_DIV2			(CTRL_BASE + 0x04B4)
-#define AUDIOPLL_FREQ3			(CTRL_BASE + 0x04B8)
+#define AUDIOPLL_FREQ3		(CTRL_BASE + 0x04B8)
 #define AUDIOPLL_DIV3			(CTRL_BASE + 0x04BC)
-#define AUDIOPLL_FREQ4			(CTRL_BASE + 0x04C0)
+#define AUDIOPLL_FREQ4		(CTRL_BASE + 0x04C0)
 #define AUDIOPLL_DIV4			(CTRL_BASE + 0x04C4)
-#define AUDIOPLL_FREQ5			(CTRL_BASE + 0x04C8)
+#define AUDIOPLL_FREQ5		(CTRL_BASE + 0x04C8)
 #define AUDIOPLL_DIV5			(CTRL_BASE + 0x04CC)
 
 #endif
 
 #ifdef CONFIG_TI814X
 
-#define GMII_SEL			(CTRL_BASE + 0x650)
+#define GMII_SEL				(CTRL_BASE + 0x650)
 
 #define PCIE_PLLCFG0			(CTRL_BASE + 0x6D8)
 #define PCIE_PLLCFG1			(CTRL_BASE + 0x6DC)
 #define PCIE_PLLCFG2			(CTRL_BASE + 0x6E0)
 #define PCIE_PLLCFG3			(CTRL_BASE + 0x6E4)
 #define PCIE_PLLCFG4			(CTRL_BASE + 0x6E8)
-#define PCIE_PLLSTATUS			(CTRL_BASE + 0x6EC)
+#define PCIE_PLLSTATUS		(CTRL_BASE + 0x6EC)
 #define PCIE_RXSTATUS			(CTRL_BASE + 0x6F0)
 #define PCIE_TXSTATUS			(CTRL_BASE + 0x6F4)
-#define SERDES_REFCLK_CTRL		(CTRL_BASE + 0xE24)
+#define SERDES_REFCLK_CTRL	(CTRL_BASE + 0xE24)
 
 #define SATA_PLLCFG0			(CTRL_BASE + 0x720)
 #define SATA_PLLCFG1			(CTRL_BASE + 0x724)
 #define SATA_PLLCFG2			(CTRL_BASE + 0x728)
 #define SATA_PLLCFG3			(CTRL_BASE + 0x72C)
 #define SATA_PLLCFG4			(CTRL_BASE + 0x730)
-#define SATA_PLLSTATUS			(CTRL_BASE + 0x734)
+#define SATA_PLLSTATUS		(CTRL_BASE + 0x734)
 #define SATA_RXSTATUS			(CTRL_BASE + 0x738)
 #define SATA_TXSTATUS			(CTRL_BASE + 0x73C)
 
 /* pin muxing registers */
 #define PIN_CTRL_BASE			(CTRL_BASE + 0x800)
-#define N_PINS				(271) /* PIN1=800, PIN 271=800+270*4=C38) */
+#define N_PINS					(271) /* PIN1=800, PIN 271=800+270*4=C38) */
 
 /* ddr control register */
-#define DDR0_CMD_CTRL			(CTRL_BASE + 0x1400)
+#define DDR0_CMD_CTRL				(CTRL_BASE + 0x1400)
 #define DDR0_DATA0_CS0_CTRL0		(CTRL_BASE + 0x1440)
 #define DDR0_DATA0_CS0_CTRL1		(CTRL_BASE + 0x1444)
 #define DDR0_DATA0_CS1_CTRL0		(CTRL_BASE + 0x1448)
@@ -176,7 +180,7 @@
 #define DDR0_DATA2_CTRL			(CTRL_BASE + 0x1428)
 #define DDR0_DATA3_CTRL			(CTRL_BASE + 0x142C)
 
-#define DDR1_CMD_CTRL			(CTRL_BASE + 0x1500)
+#define DDR1_CMD_CTRL				(CTRL_BASE + 0x1500)
 #define DDR1_DATA0_CS0_CTRL0		(CTRL_BASE + 0x1540)
 #define DDR1_DATA0_CS0_CTRL1		(CTRL_BASE + 0x1544)
 #define DDR1_DATA0_CS1_CTRL0		(CTRL_BASE + 0x1548)
@@ -210,43 +214,43 @@
 #define ADPLLJ_CLKCTRL			0x4
 #define ADPLLJ_TENABLE			0x8
 #define ADPLLJ_TENABLEDIV		0xC
-#define ADPLLJ_M2NDIV			0x10
-#define ADPLLJ_MN2DIV			0x14
-#define ADPLLJ_STATUS			0x24
+#define ADPLLJ_M2NDIV				0x10
+#define ADPLLJ_MN2DIV				0x14
+#define ADPLLJ_STATUS				0x24
 
 /* ADPLLJ register values */
-#define ADPLLJ_CLKCTRL_HS2		0x00000801 /* HS2 mode, TINT2 = 1 */
-#define ADPLLJ_CLKCTRL_HS1		0x00001001 /* HS1 mode, TINT2 = 1 */
+#define ADPLLJ_CLKCTRL_HS2			0x00000801 /* HS2 mode, TINT2 = 1 */
+#define ADPLLJ_CLKCTRL_HS1			0x00001001 /* HS1 mode, TINT2 = 1 */
 #define ADPLLJ_CLKCTRL_CLKDCO		0x200A0000 /* Enable CLKDCOEN, CLKLDOEN, CLKDCOPWDNZ */
 
 #define MODENA_PLL_BASE			(PLL_SUBSYS_BASE + 0x048)
-#define DSP_PLL_BASE			(PLL_SUBSYS_BASE + 0x080)
-#define SGX_PLL_BASE			(PLL_SUBSYS_BASE + 0x0B0)
-#define IVA_PLL_BASE			(PLL_SUBSYS_BASE + 0x0E0)
-#define L3_PLL_BASE			(PLL_SUBSYS_BASE + 0x110)
-#define ISS_PLL_BASE			(PLL_SUBSYS_BASE + 0x140)
-#define DSS_PLL_BASE			(PLL_SUBSYS_BASE + 0x170)
+#define DSP_PLL_BASE				(PLL_SUBSYS_BASE + 0x080)
+#define SGX_PLL_BASE				(PLL_SUBSYS_BASE + 0x0B0)
+#define IVA_PLL_BASE				(PLL_SUBSYS_BASE + 0x0E0)
+#define L3_PLL_BASE				(PLL_SUBSYS_BASE + 0x110)
+#define ISS_PLL_BASE				(PLL_SUBSYS_BASE + 0x140)
+#define DSS_PLL_BASE				(PLL_SUBSYS_BASE + 0x170)
 #define VIDEO0_PLL_BASE			(PLL_SUBSYS_BASE + 0x1A0)
 #define VIDEO1_PLL_BASE			(PLL_SUBSYS_BASE + 0x1D0)
-#define HDMI_PLL_BASE			(PLL_SUBSYS_BASE + 0x200)
+#define HDMI_PLL_BASE				(PLL_SUBSYS_BASE + 0x200)
 #define AUDIO_PLL_BASE			(PLL_SUBSYS_BASE + 0x230)
-#define USB_PLL_BASE			(PLL_SUBSYS_BASE + 0x260)
-#define DDR_PLL_BASE			(PLL_SUBSYS_BASE + 0x290)
+#define USB_PLL_BASE				(PLL_SUBSYS_BASE + 0x260)
+#define DDR_PLL_BASE				(PLL_SUBSYS_BASE + 0x290)
 
-#define OSC_SRC				(PLL_SUBSYS_BASE + 0x2C0)
-#define ARM_CLKSRC			(PLL_SUBSYS_BASE + 0x2C4)
-#define VIDEO_PLL_CLKSRC		(PLL_SUBSYS_BASE + 0x2C8)
+#define OSC_SRC					(PLL_SUBSYS_BASE + 0x2C0)
+#define ARM_CLKSRC				(PLL_SUBSYS_BASE + 0x2C4)
+#define VIDEO_PLL_CLKSRC			(PLL_SUBSYS_BASE + 0x2C8)
 #define MLB_ATL_CLKSRC			(PLL_SUBSYS_BASE + 0x2CC)
 #define McASP235_AUX_CLKSRC		(PLL_SUBSYS_BASE + 0x2D0)
 #define McASP_AHCLK_CLKSRC		(PLL_SUBSYS_BASE + 0x2D4)
 #define McBSP_UART_CLKSRC		(PLL_SUBSYS_BASE + 0x2D8)
 #define HDMI_I2S_CLKSRC			(PLL_SUBSYS_BASE + 0x2DC)
 #define DMTIMER_CLKSRC			(PLL_SUBSYS_BASE + 0x2E0)
-#define CLKOUT_MUX			(PLL_SUBSYS_BASE + 0x2E4)
+#define CLKOUT_MUX				(PLL_SUBSYS_BASE + 0x2E4)
 #define RMII_REFCLK_SRC			(PLL_SUBSYS_BASE + 0x2E8)
-#define SECSS_CLKSRC			(PLL_SUBSYS_BASE + 0x2EC)
-#define SYSCLK18_SRC			(PLL_SUBSYS_BASE + 0x2F0)
-#define WDT0_CLKSRC			(PLL_SUBSYS_BASE + 0x2F4)
+#define SECSS_CLKSRC				(PLL_SUBSYS_BASE + 0x2EC)
+#define SYSCLK18_SRC				(PLL_SUBSYS_BASE + 0x2F0)
+#define WDT0_CLKSRC				(PLL_SUBSYS_BASE + 0x2F4)
 
 #endif
 
@@ -254,7 +258,7 @@
 #define CM_DPLL_OFFSET			(PRCM_BASE + 0x0300)
 
 #ifdef CONFIG_TI816X
-#define CM_TIMER1_CLKSEL		(CM_DPLL_OFFSET + 0x90)
+#define CM_TIMER1_CLKSEL			(CM_DPLL_OFFSET + 0x90)
 
 /* Timers */
 #define CM_ALWON_TIMER_0_CLKCTRL	(PRCM_BASE + 0x156C)
@@ -268,7 +272,7 @@
 #endif
 
 #define CM_ALWON_WDTIMER_CLKCTRL	(PRCM_BASE + 0x158C)
-#define CM_ALWON_SPI_CLKCTRL		(PRCM_BASE + 0x1590)
+#define CM_ALWON_SPI_CLKCTRL			(PRCM_BASE + 0x1590)
 #define CM_ALWON_CONTROL_CLKCTRL	(PRCM_BASE + 0x15C4)
 
 #define CM_ALWON_L3_SLOW_CLKSTCTRL	(PRCM_BASE + 0x1400)
@@ -277,8 +281,8 @@
 #define CM_ALWON_CUST_EFUSE_CLKCTRL	(PRCM_BASE + 0x1628)
 #endif
 
-#define CM_ALWON_GPIO_0_CLKCTRL		(PRCM_BASE + 0x155c)
-#define CM_ALWON_GPIO_0_OPTFCLKEN_DBCLK (PRCM_BASE + 0x155c)
+#define CM_ALWON_GPIO_0_CLKCTRL				(PRCM_BASE + 0x155c)
+#define CM_ALWON_GPIO_0_OPTFCLKEN_DBCLK 	(PRCM_BASE + 0x155c)
 
 /* Ethernet */
 #define CM_ETHERNET_CLKSTCTRL		(PRCM_BASE + 0x1404)
@@ -314,8 +318,8 @@
 
 /* UART registers */
 /*TODO:Move to a new file */
-#define UART_SYSCFG			(DEFAULT_UART_BASE + 0x54)
-#define UART_SYSSTS			(DEFAULT_UART_BASE + 0x58)
+#define UART_SYSCFG		(DEFAULT_UART_BASE + 0x54)
+#define UART_SYSSTS		(DEFAULT_UART_BASE + 0x58)
 #define UART_LCR			(DEFAULT_UART_BASE + 0x0C)
 #define UART_EFR			(DEFAULT_UART_BASE + 0x08)
 #define UART_MCR			(DEFAULT_UART_BASE + 0x10)
@@ -334,55 +338,57 @@
 #define DMM_LISA_MAP__3			(DMM_BASE + 0x4C)
 #define DMM_PAT_BASE_ADDR		(DMM_BASE + 0x460)
 
-#define EMIF4_0_SDRAM_CONFIG		(EMIF4_0_CFG_BASE + 0x08)
-#define EMIF4_0_SDRAM_CONFIG2		(EMIF4_0_CFG_BASE + 0x0C)
-#define EMIF4_0_SDRAM_REF_CTRL		(EMIF4_0_CFG_BASE + 0x10)
+/* DDR ÅäÖÃ¼Ä´æÆ÷µØÖ· */
+
+#define EMIF4_0_SDRAM_CONFIG				(EMIF4_0_CFG_BASE + 0x08)
+#define EMIF4_0_SDRAM_CONFIG2			(EMIF4_0_CFG_BASE + 0x0C)
+#define EMIF4_0_SDRAM_REF_CTRL			(EMIF4_0_CFG_BASE + 0x10)
 #define EMIF4_0_SDRAM_REF_CTRL_SHADOW	(EMIF4_0_CFG_BASE + 0x14)
-#define EMIF4_0_SDRAM_TIM_1		(EMIF4_0_CFG_BASE + 0x18)
-#define EMIF4_0_SDRAM_TIM_1_SHADOW	(EMIF4_0_CFG_BASE + 0x1C)
-#define EMIF4_0_SDRAM_TIM_2		(EMIF4_0_CFG_BASE + 0x20)
-#define EMIF4_0_SDRAM_TIM_2_SHADOW	(EMIF4_0_CFG_BASE + 0x24)
-#define EMIF4_0_SDRAM_TIM_3		(EMIF4_0_CFG_BASE + 0x28)
-#define EMIF4_0_SDRAM_TIM_3_SHADOW	(EMIF4_0_CFG_BASE + 0x2C)
-#define EMIF4_0_DDR_PHY_CTRL_1		(EMIF4_0_CFG_BASE + 0xE4)
+#define EMIF4_0_SDRAM_TIM_1				(EMIF4_0_CFG_BASE + 0x18)
+#define EMIF4_0_SDRAM_TIM_1_SHADOW		(EMIF4_0_CFG_BASE + 0x1C)
+#define EMIF4_0_SDRAM_TIM_2				(EMIF4_0_CFG_BASE + 0x20)
+#define EMIF4_0_SDRAM_TIM_2_SHADOW		(EMIF4_0_CFG_BASE + 0x24)
+#define EMIF4_0_SDRAM_TIM_3				(EMIF4_0_CFG_BASE + 0x28)
+#define EMIF4_0_SDRAM_TIM_3_SHADOW		(EMIF4_0_CFG_BASE + 0x2C)
+#define EMIF4_0_DDR_PHY_CTRL_1			(EMIF4_0_CFG_BASE + 0xE4)
 #define EMIF4_0_DDR_PHY_CTRL_1_SHADOW	(EMIF4_0_CFG_BASE + 0xE8)
-#define EMIF4_0_IODFT_TLGC		(EMIF4_0_CFG_BASE + 0x60)
+#define EMIF4_0_IODFT_TLGC				(EMIF4_0_CFG_BASE + 0x60)
 
-#define EMIF4_1_SDRAM_CONFIG		(EMIF4_1_CFG_BASE + 0x08)
-#define EMIF4_1_SDRAM_CONFIG2		(EMIF4_1_CFG_BASE + 0x0C)
-#define EMIF4_1_SDRAM_REF_CTRL		(EMIF4_1_CFG_BASE + 0x10)
+#define EMIF4_1_SDRAM_CONFIG				(EMIF4_1_CFG_BASE + 0x08)
+#define EMIF4_1_SDRAM_CONFIG2			(EMIF4_1_CFG_BASE + 0x0C)
+#define EMIF4_1_SDRAM_REF_CTRL			(EMIF4_1_CFG_BASE + 0x10)
 #define EMIF4_1_SDRAM_REF_CTRL_SHADOW	(EMIF4_1_CFG_BASE + 0x14)
-#define EMIF4_1_SDRAM_TIM_1		(EMIF4_1_CFG_BASE + 0x18)
-#define EMIF4_1_SDRAM_TIM_1_SHADOW	(EMIF4_1_CFG_BASE + 0x1C)
-#define EMIF4_1_SDRAM_TIM_2		(EMIF4_1_CFG_BASE + 0x20)
-#define EMIF4_1_SDRAM_TIM_2_SHADOW	(EMIF4_1_CFG_BASE + 0x24)
-#define EMIF4_1_SDRAM_TIM_3		(EMIF4_1_CFG_BASE + 0x28)
-#define EMIF4_1_SDRAM_TIM_3_SHADOW	(EMIF4_1_CFG_BASE + 0x2C)
-#define EMIF4_1_DDR_PHY_CTRL_1		(EMIF4_1_CFG_BASE + 0xE4)
+#define EMIF4_1_SDRAM_TIM_1				(EMIF4_1_CFG_BASE + 0x18)
+#define EMIF4_1_SDRAM_TIM_1_SHADOW		(EMIF4_1_CFG_BASE + 0x1C)
+#define EMIF4_1_SDRAM_TIM_2				(EMIF4_1_CFG_BASE + 0x20)
+#define EMIF4_1_SDRAM_TIM_2_SHADOW		(EMIF4_1_CFG_BASE + 0x24)
+#define EMIF4_1_SDRAM_TIM_3				(EMIF4_1_CFG_BASE + 0x28)
+#define EMIF4_1_SDRAM_TIM_3_SHADOW		(EMIF4_1_CFG_BASE + 0x2C)
+#define EMIF4_1_DDR_PHY_CTRL_1			(EMIF4_1_CFG_BASE + 0xE4)
 #define EMIF4_1_DDR_PHY_CTRL_1_SHADOW	(EMIF4_1_CFG_BASE + 0xE8)
-#define EMIF4_1_IODFT_TLGC		(EMIF4_1_CFG_BASE + 0x60)
+#define EMIF4_1_IODFT_TLGC				(EMIF4_1_CFG_BASE + 0x60)
 
-#define EMIF4_REGION_SIZE		(EMIF4_1_CFG_BASE - EMIF4_0_CFG_BASE)
-#define EMIF4_SDRAM_CONFIG		(0x08)
-#define EMIF4_SDRAM_CONFIG2		(0x0C)
-#define EMIF4_SDRAM_REF_CTRL		(0x10)
-#define EMIF4_SDRAM_REF_CTRL_SHADOW	(0x14)
-#define EMIF4_SDRAM_TIM_1		(0x18)
-#define EMIF4_SDRAM_TIM_1_SHADOW	(0x1C)
-#define EMIF4_SDRAM_TIM_2		(0x20)
-#define EMIF4_SDRAM_TIM_2_SHADOW	(0x24)
-#define EMIF4_SDRAM_TIM_3		(0x28)
-#define EMIF4_SDRAM_TIM_3_SHADOW	(0x2C)
-#define EMIF4_DDR_PHY_CTRL_1		(0xE4)
-#define EMIF4_DDR_PHY_CTRL_1_SHADOW	(0xE8)
-#define EMIF4_IODFT_TLGC		(0x60)
+#define EMIF4_REGION_SIZE				(EMIF4_1_CFG_BASE - EMIF4_0_CFG_BASE)
+#define EMIF4_SDRAM_CONFIG				(0x08)
+#define EMIF4_SDRAM_CONFIG2				(0x0C)
+#define EMIF4_SDRAM_REF_CTRL				(0x10)
+#define EMIF4_SDRAM_REF_CTRL_SHADOW		(0x14)
+#define EMIF4_SDRAM_TIM_1				(0x18)
+#define EMIF4_SDRAM_TIM_1_SHADOW		(0x1C)
+#define EMIF4_SDRAM_TIM_2				(0x20)
+#define EMIF4_SDRAM_TIM_2_SHADOW		(0x24)
+#define EMIF4_SDRAM_TIM_3				(0x28)
+#define EMIF4_SDRAM_TIM_3_SHADOW		(0x2C)
+#define EMIF4_DDR_PHY_CTRL_1				(0xE4)
+#define EMIF4_DDR_PHY_CTRL_1_SHADOW		(0xE8)
+#define EMIF4_IODFT_TLGC					(0x60)
 
 /*EMIF4 PRCM Defintion*/
 #define CM_DEFAULT_L3_FAST_CLKSTCTRL	(PRCM_BASE + 0x0508)
-#define CM_DEFAULT_EMIF_0_CLKCTRL	(PRCM_BASE + 0x0520)
-#define CM_DEFAULT_EMIF_1_CLKCTRL	(PRCM_BASE + 0x0524)
-#define CM_DEFAULT_DMM_CLKCTRL		(PRCM_BASE + 0x0528)
-#define CM_DEFAULT_FW_CLKCTRL		(PRCM_BASE + 0x052C)
+#define CM_DEFAULT_EMIF_0_CLKCTRL		(PRCM_BASE + 0x0520)
+#define CM_DEFAULT_EMIF_1_CLKCTRL		(PRCM_BASE + 0x0524)
+#define CM_DEFAULT_DMM_CLKCTRL			(PRCM_BASE + 0x0528)
+#define CM_DEFAULT_FW_CLKCTRL			(PRCM_BASE + 0x052C)
 
 /* Smartreflex Registers */
 #define TI816X_SMRT_SCALE_ADDR		(CTRL_BASE + 0x06A0)
@@ -403,51 +409,51 @@
 
 /* OCMC */
 #ifdef CONFIG_TI816X
-#define SRAM0_SIZE			(0x40000)
+#define SRAM0_SIZE				(0x40000)
 #define SRAM_GPMC_STACK_SIZE		(0x40)
 #endif
 
 /* GPMC related */
 #define GPMC_CONFIG_CS0			(0x60)
 #define GPMC_CONFIG_CS0_BASE		(GPMC_BASE + GPMC_CONFIG_CS0)
-#define GPMC_CONFIG1			(0x00)
-#define GPMC_CONFIG2			(0x04)
-#define GPMC_CONFIG3			(0x08)
-#define GPMC_CONFIG4			(0x0C)
-#define GPMC_CONFIG5			(0x10)
-#define GPMC_CONFIG6			(0x14)
-#define GPMC_CONFIG7			(0x18)
+#define GPMC_CONFIG1				(0x00)
+#define GPMC_CONFIG2				(0x04)
+#define GPMC_CONFIG3				(0x08)
+#define GPMC_CONFIG4				(0x0C)
+#define GPMC_CONFIG5				(0x10)
+#define GPMC_CONFIG6				(0x14)
+#define GPMC_CONFIG7				(0x18)
 
 /* PAD configuration register offsets and values for gpmc address
  * lines a12 - a26
  */
 #ifdef CONFIG_TI816X
 
-#define TIM7_OUT			(CTRL_BASE + 0xb34)	/* a12 */
+#define TIM7_OUT				(CTRL_BASE + 0xb34)	/* a12 */
 #define UART1_CTSN			(CTRL_BASE + 0xadc)	/* a13 */
 #define UART1_RTSN			(CTRL_BASE + 0xad8)	/* a14 */
 #define UART2_RTSN			(CTRL_BASE + 0xae8)	/* a15 */
 #define SC1_RST				(CTRL_BASE + 0xb10)	/* a15 */
 #define UART2_CTSN			(CTRL_BASE + 0xaec)	/* a16 */
-#define UART0_RIN			(CTRL_BASE + 0xacc)	/* a17 */
+#define UART0_RIN				(CTRL_BASE + 0xacc)	/* a17 */
 #define UART0_DCDN			(CTRL_BASE + 0xac8)	/* a18 */
 #define UART0_DSRN			(CTRL_BASE + 0xac4)	/* a19 */
 #define UART0_DTRN			(CTRL_BASE + 0xac0)	/* a20 */
-#define SPI_SCS3			(CTRL_BASE + 0xaa4)	/* a21 */
+#define SPI_SCS3				(CTRL_BASE + 0xaa4)	/* a21 */
 #define SPI_SC2				(CTRL_BASE + 0xaa0)	/* a22 */
 #define GPO_IO6				(CTRL_BASE + 0xca0)	/* a23 */
-#define TIM6_OUT			(CTRL_BASE + 0xb30)	/* a24 */
-#define SC0_DATA			(CTRL_BASE + 0xafc)	/* a25 */
-#define GPMC_A27			(CTRL_BASE + 0xba0)	/* a27 */
+#define TIM6_OUT				(CTRL_BASE + 0xb30)	/* a24 */
+#define SC0_DATA				(CTRL_BASE + 0xafc)	/* a25 */
+#define GPMC_A27				(CTRL_BASE + 0xba0)	/* a27 */
 
 /* MMC Pad register offsets */
 #define MMC_POW				(CTRL_BASE + 0xa70)
 #define MMC_CLK				(CTRL_BASE + 0xa74)
 #define MMC_CMD				(CTRL_BASE + 0xa78)
-#define MMC_DAT0			(CTRL_BASE + 0xa7c)
-#define MMC_DAT1_SDIRQ			(CTRL_BASE + 0xa80)
+#define MMC_DAT0				(CTRL_BASE + 0xa7c)
+#define MMC_DAT1_SDIRQ		(CTRL_BASE + 0xa80)
 #define MMC_DAT2_SDRW			(CTRL_BASE + 0xa84)
-#define MMC_DAT3			(CTRL_BASE + 0xa88)
+#define MMC_DAT3				(CTRL_BASE + 0xa88)
 
 #define GPMC_A12			TIM7_OUT
 #define GPMC_A13			UART1_CTSN

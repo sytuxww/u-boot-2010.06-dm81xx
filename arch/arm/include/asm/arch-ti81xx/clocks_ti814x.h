@@ -20,53 +20,59 @@
  */
 #ifndef _CLOCKS_TI814X_H_
 #define _CLOCKS_TI814X_H_
-
+//---------------------------------------------------------------------//
+//
+//			TI814x CPU PLL时钟设置
+//
+//---------------------------------------------------------------------//
+/* 晶振 */
 #define OSC_0_FREQ	20
 
 /* Put the pll config values over here */
 #define AUDIO_N		19
 #define AUDIO_M		500
-#define AUDIO_M2	2
+#define AUDIO_M2		2
 #define AUDIO_CLKCTRL	0x801
 
-#define MODENA_N	0x1
-#define MODENA_M	0x3C
-#define MODENA_M2	1
+#define MODENA_N			0x1
+#define MODENA_M			0x3C
+#define MODENA_M2			1
 #define MODENA_CLKCTRL	0x1
 
-#define L3_N		19
-#define L3_M		(pg_val_ti814x(880, 800))
-#define L3_M2		4
+#define L3_N			19
+#define L3_M			(pg_val_ti814x(880, 800))
+#define L3_M2			4
 #define L3_CLKCTRL	0x801
 
-#define DDR_N		19
-#define DDR_M		(pg_val_ti814x(666, 800))
-#define DDR_M2		2
+/* DDR 时钟分频设置 */
+#define DDR_N			19
+#define DDR_M			(pg_val_ti814x(666, 800))
+#define DDR_M2			2
 #define DDR_CLKCTRL	0x801
 
-#define DSP_N		19
-#define DSP_M		500
-#define DSP_M2		1
+#define DSP_N			19
+#define DSP_M			500
+#define DSP_M2			1
 #define DSP_CLKCTRL	0x801
 
-#define DSS_N		19
-#define DSS_M		(pg_val_ti814x(800, 800))
-#define DSS_M2		4
+#define DSS_N			19
+#define DSS_M			(pg_val_ti814x(800, 800))
+#define DSS_M2			4
 #define DSS_CLKCTRL	0x801
 
-#define IVA_N		19
-#define IVA_M		(pg_val_ti814x(612, 612))
-#define IVA_M2		2
+#define IVA_N			19
+#define IVA_M			(pg_val_ti814x(612, 612))
+#define IVA_M2			2
 #define IVA_CLKCTRL	0x801
 
-#define ISS_N		19
-#define ISS_M		800
-#define ISS_M2		(pg_val_ti814x(2, 2))
+#define ISS_N			19
+#define ISS_M			800
+#define ISS_M2			(pg_val_ti814x(2, 2))
 #define ISS_CLKCTRL	0x801
 
-#define USB_N		19
-#define USB_M		960
-#define USB_M2		(pg_val_ti814x(1, 5))
+#define USB_N			19
+#define USB_M			960
+#define USB_M2			(pg_val_ti814x(1, 5))
 #define USB_CLKCTRL	0x200a0801
 #endif	/* endif _CLOCKS_TI814X_H_ */
 
